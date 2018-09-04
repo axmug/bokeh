@@ -6,7 +6,7 @@ from bokeh.document import Document
 from bokeh.embed import file_html
 from bokeh.resources import INLINE
 from bokeh.util.browser import view
-from bokeh.models import ColumnDataSource
+from bokeh.models import ColumnDataSource, CustomJS
 from bokeh.models.layouts import Column, Row, Tabs, Panel
 from bokeh.models.widgets import (
     Button, Toggle, Dropdown,
@@ -14,7 +14,7 @@ from bokeh.models.widgets import (
     CheckboxButtonGroup, RadioButtonGroup,
     TextInput, AutocompleteInput,
     Select, MultiSelect,
-    Slider, RangeSlider, #DateRangeSlider,
+    Slider, RangeSlider, DateSlider, DateRangeSlider,
     DatePicker,
     Paragraph, Div, PreText,
     DataTable, TableColumn,
@@ -126,7 +126,83 @@ widgets = Column(children=[
 ])
 
 doc = Document()
-doc.add_root(widgets)
+#doc.add_root(widgets)
+
+menu = [("Item 1", "1"), ("Item 2", "2"), ("Item 3", "3")]
+
+#click = dict(js_property_callbacks={"change:clicks": [CustomJS(code="console.log(this.label)")]})
+
+layout = Column(children=[
+    Button(label="Disabled Default Button 1", button_type="default", disabled=True),
+    Button(label="Primary Button 2", button_type="primary"),
+    Button(label="Success Button 3", button_type="success"),
+
+    Toggle(label="Warning Toggle 1", button_type="warning"),
+    Toggle(label="Dange Toggle 2", button_type="danger"),
+    Toggle(label="Default Toggle 3", button_type="default"),
+
+    Dropdown(label="Success Dropdown 1", menu=menu, button_type="success"),
+    Dropdown(label="Warning Dropdown 2", menu=menu, button_type="warning"),
+    Dropdown(label="Danger Dropdown 3", menu=menu, button_type="danger"),
+
+    CheckboxGroup(labels=["Checkbox Option 1", "Checkbox Option 2", "Checkbox Option 3"], active=[0, 1]),
+    CheckboxGroup(labels=["Checkbox Option 4", "Checkbox Option 5", "Checkbox Option 6"], active=[1, 2]),
+    CheckboxGroup(labels=["Checkbox Option 7", "Checkbox Option 8", "Checkbox Option 9"], active=[0, 2]),
+
+    CheckboxGroup(labels=["Checkbox Option 1", "Checkbox Option 2", "Checkbox Option 3"], active=[0, 1], inline=True),
+    CheckboxGroup(labels=["Checkbox Option 4", "Checkbox Option 5", "Checkbox Option 6"], active=[1, 2], inline=True),
+    CheckboxGroup(labels=["Checkbox Option 7", "Checkbox Option 8", "Checkbox Option 9"], active=[0, 2], inline=True),
+
+    RadioGroup(labels=["Radio Option 1", "Radio Option 2", "Radio Option 3"], active=0),
+    RadioGroup(labels=["Radio Option 4", "Radio Option 5", "Radio Option 6"], active=1),
+    RadioGroup(labels=["Radio Option 7", "Radio Option 8", "Radio Option 9"], active=2),
+
+    RadioGroup(labels=["Radio Option 1", "Radio Option 2", "Radio Option 3"], active=0, inline=True),
+    RadioGroup(labels=["Radio Option 4", "Radio Option 5", "Radio Option 6"], active=1, inline=True),
+    RadioGroup(labels=["Radio Option 7", "Radio Option 8", "Radio Option 9"], active=2, inline=True),
+
+    CheckboxButtonGroup(labels=["Checkbox Option 1", "Checkbox Option 2", "Checkbox Option 3"], active=[0, 1]),
+    CheckboxButtonGroup(labels=["Checkbox Option 4", "Checkbox Option 5", "Checkbox Option 6"], active=[1, 2]),
+    CheckboxButtonGroup(labels=["Checkbox Option 7", "Checkbox Option 8", "Checkbox Option 9"], active=[0, 2]),
+
+    RadioButtonGroup(labels=["Radio Option 1", "Radio Option 2", "Radio Option 3"], active=0),
+    RadioButtonGroup(labels=["Radio Option 4", "Radio Option 5", "Radio Option 6"], active=1),
+    RadioButtonGroup(labels=["Radio Option 7", "Radio Option 8", "Radio Option 9"], active=2),
+
+    TextInput(placeholder="TextInput 1"),
+    TextInput(placeholder="TextInput 2"),
+    TextInput(placeholder="TextInput 3"),
+
+    AutocompleteInput(placeholder="AutocompleteInput 1 ...", completions=["aaa", "aab", "aac", "baa", "caa"]),
+
+    Select(options=["Select Option 1", "Select Option 2", "Select Option 3"]),
+    MultiSelect(options=["MultiSelect Option %d" % (i+1) for i in range(16)], size=6),
+
+    #Paragraph(text="Paragraph 1"),
+    #Paragraph(text="Paragraph 2"),
+    #Paragraph(text="Paragraph 3"),
+
+    #Div(text="Div 1"),
+    #Div(text="Div 2"),
+    #Div(text="Div 3"),
+
+    #PreText(text="PreText 1"),
+    #PreText(text="PreText 2"),
+    #PreText(text="PreText 3"),
+
+    DatePicker(value=date(2018, 9, 1)),
+    DatePicker(value=date(2018, 9, 2)),
+    DatePicker(value=date(2018, 9, 3)),
+
+    Slider(value=10, start=0, end=100, step=0.5),
+    RangeSlider(value=[20, 30], start=0, end=100, step=0.5),
+    DateSlider(value=date(2018, 9, 1), start=date(2018, 1, 1), end=date(2018, 12, 31)),
+    DateRangeSlider(value=(date(2018, 9, 1), date(2018, 9, 30)), start=date(2018, 1, 1), end=date(2018, 12, 31)),
+
+    DataTable(source=source, columns=columns, editable=True), #, width=800),
+])
+
+doc.add_root(layout)
 
 if __name__ == "__main__":
     doc.validate()

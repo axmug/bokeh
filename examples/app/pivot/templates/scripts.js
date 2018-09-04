@@ -31,9 +31,9 @@ $(document).ready(function(){
     });
     $('body').on('click', '.select-opt', function(){
         var checked_bool = $(this).hasClass('select-all') ? true: false;
-        $(this).parent().next('.bk-widget').find('.bk-bs-checkbox input').prop( "checked", checked_bool);
-        $(this).parent().next('.bk-widget').find('.bk-bs-checkbox input').first().click();
-        $(this).parent().next('.bk-widget').find('.bk-bs-checkbox input').first().click();
+        $(this).parent().next('.bk-widget').find('.bk-checkbox input').prop( "checked", checked_bool);
+        $(this).parent().next('.bk-widget').find('.bk-checkbox input').first().click();
+        $(this).parent().next('.bk-widget').find('.bk-checkbox input').first().click();
     });
     $('body').on('click', '.legend-header', function(){
         $(this).next('.legend-body').toggle();

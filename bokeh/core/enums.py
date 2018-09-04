@@ -199,7 +199,7 @@ TooltipAttachment = enumeration("horizontal", "vertical",
 DashPattern = enumeration("solid", "dashed", "dotted", "dotdash", "dashdot")
 
 #: Specify a style for button widgets
-ButtonType = enumeration("default", "primary", "success", "warning", "danger", "link")
+ButtonType = enumeration("default", "primary", "success", "warning", "danger")
 
 #: Specify one of the 137 named CSS colors
 NamedColor = enumeration(*colors.named.__all__, case_sensitive=False)

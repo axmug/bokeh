@@ -54,7 +54,7 @@ body {
     display: inline-block;
     margin-right: 10px
 }
-.bk-root .bk-bs-btn.export-config{
+.bk-root .bk-btn.export-config{
     width: 100%;
     padding: 6px 0;
     border: 0;
